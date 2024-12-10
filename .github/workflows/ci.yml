@@ -20,9 +20,6 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
 
-    - name: Navigate to Project Directory
-      run: cd GitAction
-
     - name: Install Dependencies
       run: |
         cd GitAction
@@ -45,4 +42,4 @@ jobs:
         git config --local user.email "actions@github.com"
         git add .
         git commit -m "Automated CI/CD Updates"
-        git push
+        git push || echo "No changes to push"
