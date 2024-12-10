@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Вы можете изменить на другую ОС, если нужно
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
@@ -17,11 +17,11 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v3
       with:
-        java-version: '11'  # Укажите вашу версию Java (например, 11 или 17)
-        distribution: 'adoptopenjdk'  # Вы можете изменить на другую, если используете другой JDK
+        java-version: '11'  # Укажите вашу версию Java
+        distribution: 'temurin'  # Заменяем adoptopenjdk на temurin
 
     - name: Install dependencies
-      run: mvn install -DskipTests  # Устанавливаем зависимости, но пропускаем тесты на этом этапе
+      run: mvn install -DskipTests  # Устанавливаем зависимости без запуска тестов
 
     - name: Build the project
       run: mvn clean install  # Собираем проект с тестами
