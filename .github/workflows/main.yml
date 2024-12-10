@@ -1,0 +1,37 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Вы можете изменить на другую ОС, если нужно
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'  # Укажите вашу версию Java (например, 11 или 17)
+        distribution: 'adoptopenjdk'  # Вы можете изменить на другую, если используете другой JDK
+
+    - name: Install dependencies
+      run: mvn install -DskipTests  # Устанавливаем зависимости, но пропускаем тесты на этом этапе
+
+    - name: Build the project
+      run: mvn clean install  # Собираем проект с тестами
+
+    - name: Run unit tests
+      run: mvn test  # Запуск юнит-тестов
+
+    - name: Push updated code
+      run: |
+        git config --global user.name "Ваше Имя"
+        git config --global user.email "your-email@example.com"
+        git commit -am "CI: Обновление сборки проекта"
+        git push origin main
