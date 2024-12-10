@@ -20,17 +20,27 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
 
+    - name: Navigate to Project Directory
+      run: cd GitAction
+
     - name: Install Dependencies
-      run: mvn install
+      run: |
+        cd GitAction
+        mvn install
 
     - name: Build Project
-      run: mvn compile
+      run: |
+        cd GitAction
+        mvn compile
 
     - name: Run Tests
-      run: mvn test
+      run: |
+        cd GitAction
+        mvn test
 
     - name: Commit and Push Changes
       run: |
+        cd GitAction
         git config --local user.name "GitHub Actions"
         git config --local user.email "actions@github.com"
         git add .
